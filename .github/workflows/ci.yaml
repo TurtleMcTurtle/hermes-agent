@@ -118,24 +118,6 @@ jobs:
     if: needs.detect.outputs.rust == 'true'
     uses: ./.github/workflows/rust-tests.yml
 
-  e2e-desktop:
-    name: Desktop E2E
-    needs: detect
-    # python_prod (not python): the Playwright suite exercises the built app
-    # + `hermes serve` backend, which never import anything under tests/.
-    # Tests-only PRs (~17% of commits) skip this 5-minute job — the longest
-    # single job in the workflow — while still running the full pytest lanes.
-    #
-    # Re-disabled (Sep 2026): the Sep 1 re-enable is still incredibly flaky.
-    # Keep this a bare `if: false`. The earlier
-    # `${{ false && (... || ...) }}` form on this reusable-workflow job made
-    # GitHub's workflow parser fail at startup ("An unexpected error has
-    # occurred") — every ci.yaml run repo-wide dispatched 0 jobs from
-    # 24f5a60ed1 until this line changed. To re-enable, restore:
-    #   if: ${{ needs.detect.outputs.python_prod == 'true' || needs.detect.outputs.frontend == 'true' }}
-    if: false
-    uses: ./.github/workflows/e2e-desktop.yml
-
   e2e-desktop-core:
     name: Desktop core E2E
     needs: detect
@@ -241,7 +223,6 @@ jobs:
       - js-tests
       - installer-tests
       - rust-tests
-      - e2e-desktop
       - e2e-desktop-core
       - docs-site
       - history-check
@@ -257,10 +238,6 @@ jobs:
       # every PR was reporting the same repo-wide baseline of pinned-dep CVEs
       # in its review comment, and the SARIF upload tripped GitHub's
       # per-installation API rate limit during merge trains.
-      # The image build runs in its own workflow (docker.yml) and reports
-      # its own check. It was never required here, because it is too slow
-      # to block a merge. A separate run also stops it from holding this
-      # run open. That is what blocked ``gh run rerun``.
     if: always()
     runs-on: ubuntu-latest
     timeout-minutes: 10

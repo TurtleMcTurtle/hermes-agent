@@ -463,3 +463,9 @@ Long-form background lives in `website/docs/developer-guide/` (agent-loop, promp
 context-compression-and-caching, gateway-internals, tools-runtime, plugins/, cron-internals,
 session-storage, ...). Workflow rules (PR/issue/review/salvage process) live in the
 `hermes-agent-dev` skill, not here.
+
+## Repository automation review
+
+At the start of GitHub repository work, read root `review.log` and use the `audit-optimize-repository` skill when available. If missing, perform a full baseline review; if present, verify repository identity, reviewed commit, coverage, changed files and unresolved findings before deciding the review scope. A partial baseline still requires the uncovered review. Append timestamped PASS/FAIL/FIX/BLOCKED notes with evidence after relevant verification; avoid repeating unchanged audits or creating scheduled agent loops. Use the skill's stored billing baseline unless a concrete platform change requires rechecking it.
+
+Preserve affected-area CI and free dependency security coverage. Do not request paid Copilot reviews without explicit authorization. Archive obsolete workflows outside `.github/workflows` on an isolated branch/PR; fix active callers and required gates. Archives take effect after merge. Do not restore upstream automation without checking destinations, credentials, ownership and permissions. Require actual passing checks and merge protection before dependency auto-merge.

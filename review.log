@@ -1,0 +1,16 @@
+# Repository review log
+Repository: TurtleMcTurtle/hermes-agent
+Baseline commit: d6c9fb8ee8f54bc88897685ba422a60af2ecfab2
+Coverage: workflow-focused partial review; NOT a completed whole-repository baseline.
+Inventory: all 37 workflow definitions and six local actions reviewed in the preceding audit.
+Evidence window: 20 latest scheduled runs inspected; no claim about all historical runs.
+2026-10-05T10:31:39.266Z PASS Scheduled-run verification: all 20 sampled runs concluded startup_failure with zero recorded jobs. No recorded step execution in this sample; this does not establish historical absence of outbound traffic.
+2026-10-05T10:31:39.266Z FAIL Inherited automation targets NousResearch upstream or upstream deployment infrastructure; unnecessary schedules and dormant desktop caller retained.
+2026-10-05T10:31:39.266Z FIX Archive skills-index.yml, skills-index-freshness.yml, live-providers.yml, deploy-site.yml, docker.yml, e2e-desktop.yml byte-for-byte under docs/workflow-archive/2026-10-05/. Remove dormant desktop caller and gate dependency.
+2026-10-05T10:31:39.266Z FIX Remove installer twice-daily schedule; preserve manual and release-tag triggers and reusable OS runners. Retain deterministic desktop core CI and weekly OSV.
+2026-10-05T10:31:39.266Z FIX Add root AGENTS review.log entry trigger without an automated audit loop.
+2026-10-05T10:31:39.266Z PASS Local YAML parsing, active local reusable-workflow reference and needs validation performed before publishing.
+2026-10-05T10:31:39.266Z BLOCKED Runtime CI execution remains unverified; sampled startup failures have no job logs identifying the cause. Inspect the new PR's checks before merge.
+2026-10-05T10:31:39.266Z FAIL Main reports unprotected with no required checks; rulesets listing empty. Recommend requiring All required checks pass before enabling dependency auto-merge.
+2026-10-05T10:31:39.266Z SKIP Follow-up: complete full application/dependency audit; verify Dependabot alert/security-update settings and ecosystem coverage; evaluate comment polling/timing report overhead, standard runners, cache/artifact retention, cancellation gate behavior, and docs-only classification of review.log. No paid Copilot review requested; no savings estimate inferred from failed runs.
+2026-10-05T10:31:39.266Z SKIP Changes are proposed on an isolated branch/PR. Archives disable discovery only after merge to main; no merge or deployment performed.
